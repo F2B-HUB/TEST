@@ -1,0 +1,22 @@
+-- define the expected source URL
+local expectedSource = "https://raw.githubusercontent.com/F2B-HUB/F2B/main/HUB"
+
+-- get the current source file path
+local currentSource = debug.getinfo(1).source
+
+-- define a function to check if the current source matches the expected source
+local function checkSource()
+    local trace = debug.traceback()
+    if trace:find(currentSource, 1, true) ~= 1 then
+        error("Script loaded from unexpected source!")
+    end
+    if currentSource ~= expectedSource then
+        error("Script loaded from unexpected source!")
+    end
+end
+
+-- call the checkSource function to perform the source check
+checkSource()
+
+-- your code here
+loadstring(game:HttpGet(expectedSource))()
