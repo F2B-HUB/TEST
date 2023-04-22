@@ -1,0 +1,53 @@
+local module = {}
+
+local function findObject(name)
+    for _, child in ipairs(game.Workspace:GetDescendants()) do
+        if child.Name == name then
+            return child.Parent, "Workspace"
+        end
+    end
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        for _, item in ipairs(player.Backpack:GetChildren()) do
+            if item.Name == name then
+                return item.Parent.Parent, "Players"
+            end
+        end
+    end
+    return nil
+end
+
+function module:emote(emoteName)
+    if emoteName then
+        local remotes = game:GetService("ReplicatedStorage").Remotes
+        if remotes and remotes.Misc and remotes.Misc.PlayEmote then
+            remotes.Misc.PlayEmote:Fire(emoteName)
+        end
+    end
+end
+
+function module:xray(enable)
+    local function setTransparency(obj)
+        obj.LocalTransparencyModifier = enable and 0.8 or 0
+    end
+    local function traverseDescendants(parent)
+        for _, child in ipairs(parent:GetChildren()) do
+            if child:IsA("BasePart") then
+                setTransparency(child)
+            end
+            if not child:IsA("Humanoid") then
+                traverseDescendants(child)
+            end
+        end
+    end
+    traverseDescendants(game.Workspace)
+end
+
+module.findKnife = function()
+    return findObject("Knife")
+end
+
+module.findGun = function()
+    return findObject("Gun")
+end
+
+return module
